@@ -198,7 +198,7 @@ void ParticleSystem::applyPressureRepulsion(float dt) {
 }
 
 void ParticleSystem::computeDensities() {
-    for (Particle& particle: particles) {
+    for (Particle &particle : particles) {
         particle.density = 0;
     }
     for (int cellY = 0; cellY < gridRows; cellY++) {
@@ -238,7 +238,6 @@ void ParticleSystem::computeDensities() {
                             float t = 1.0f - (distance / config.smoothingRadius);
                             a.density += t;
                             b.density += t;
-
                         }
                     }
                 }
@@ -253,7 +252,9 @@ void ParticleSystem::update(float dt) {
 
     integrate(dt);
     buildGrid();
-    computeDensities();
+    if (config.mode == SimulationMode::Pressure) {
+        computeDensities();
+    }
     if (config.mode == SimulationMode::Balls) {
         resolveBallCollisions();
     } else {
@@ -264,7 +265,8 @@ void ParticleSystem::update(float dt) {
 
 void ParticleSystem::draw() const {
     if (config.mode == SimulationMode::Pressure) {
-        return drawPressure();
+        drawPressure();
+        return;
     }
     constexpr float maxVisualSpeed = 600.0f;
 
