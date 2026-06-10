@@ -174,7 +174,7 @@ void ParticleSystem::applyPressureRepulsion(float dt) {
                             float distance = delta.length();
                             narrowphaseChecks++;
 
-                            if (distance <= 0.0f || distance >= config.pressureRadius) {
+                            if (distance <= 0.0f || distance >= config.smoothingRadius) {
                                 continue;
                             }
 
@@ -182,8 +182,9 @@ void ParticleSystem::applyPressureRepulsion(float dt) {
 
                             Vec2 normal = delta / distance;
 
-                            float t = 1.0f - (distance / config.pressureRadius);
-                            float forceMagnitude = config.pressureStrength * t;
+                            float t = 1.0f - (distance / config.smoothingRadius);
+                            float sharedPressure = (a.pressure + b.pressure) * 0.5f;
+                            float forceMagnitude = sharedPressure * t;
 
                             Vec2 force = normal * forceMagnitude;
 
@@ -246,6 +247,15 @@ void ParticleSystem::computeDensities() {
     }
 }
 
+void ParticleSystem::computePressures() {
+    for (Particle &particle : particles) {
+        particle.pressure = config.pressureStiffness * (particle.density - config.targetDensity);
+        if (particle.pressure < 0.0f) {
+            particle.pressure = 0.0f;
+        }
+    }
+}
+
 void ParticleSystem::update(float dt) {
     narrowphaseChecks = 0;
     actualCollisions = 0;
@@ -254,6 +264,7 @@ void ParticleSystem::update(float dt) {
     buildGrid();
     if (config.mode == SimulationMode::Pressure) {
         computeDensities();
+        computePressures();
     }
     if (config.mode == SimulationMode::Balls) {
         resolveBallCollisions();

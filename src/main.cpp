@@ -70,16 +70,18 @@ int main() {
 
             GuiSlider({40, 300, 200, 20}, "Gravity", TextFormat("%.0f", mutableConfig.gravity),
                       &mutableConfig.gravity, 0.0f, 2000.0f);
-            GuiSlider({40, 350, 200, 20}, "Damping", TextFormat("%.2f", mutableConfig.bounceDamping),
+            GuiSlider({40, 340, 200, 20}, "Damping", TextFormat("%.2f", mutableConfig.bounceDamping),
                       &mutableConfig.bounceDamping, 0.0f, 1.0f);
-            GuiSlider({40, 400, 200, 20}, "Drag", TextFormat("%.2f", mutableConfig.airDrag),
+            GuiSlider({40, 380, 200, 20}, "Drag", TextFormat("%.2f", mutableConfig.airDrag),
                       &mutableConfig.airDrag, 0.0f, 1.0f);
-            GuiSlider({40, 450, 200, 20}, "Restitution", TextFormat("%.2f", mutableConfig.restitution),
+            GuiSlider({40, 420, 200, 20}, "Restitution", TextFormat("%.2f", mutableConfig.restitution),
                       &mutableConfig.restitution, 0.0f, 1.0f);
-            GuiSlider({40, 500, 200, 20}, "Pressure Radius", TextFormat("%.2f", mutableConfig.pressureRadius),
-                      &mutableConfig.pressureRadius, 0.0f, 50.0f);
-            GuiSlider({40, 550, 200, 20}, "Pressure Strength", TextFormat("%.2f", mutableConfig.pressureStrength),
-                      &mutableConfig.pressureStrength, 0.0f, 5000.0f);
+            GuiSlider({40, 460, 200, 20}, "Smoothing Radius", TextFormat("%.2f", mutableConfig.smoothingRadius),
+                      &mutableConfig.smoothingRadius, 0.0f, 50.0f);
+            GuiSlider({40, 500, 200, 20}, "Pressure Strength", TextFormat("%.2f", mutableConfig.pressureStiffness),
+                      &mutableConfig.pressureStiffness, 0.0f, 2000.0f);
+            GuiSlider({40, 540, 200, 20}, "Target Density", TextFormat("%.1f", mutableConfig.targetDensity),
+                      &mutableConfig.targetDensity, 0, 20);
         }
 
         DrawText("Particle Sandbox", 40, 40, 32, RAYWHITE);

@@ -1,9 +1,6 @@
 #pragma once
 
-enum class SimulationMode {
-    Balls,
-    Pressure
-};
+enum class SimulationMode { Balls, Pressure };
 
 struct SimulationConfig {
     int screenWidth = 1000;
@@ -16,11 +13,9 @@ struct SimulationConfig {
     float restitution = 0.9f;
     int gridSize = 32;
 
-    float pressureRadius = 28.0f;
-    float pressureStrength = 900.0f;
-
     float smoothingRadius = 32.0f;
     float targetDensity = 8.0f;
-    
+    float pressureStiffness = 600.0f;
+
     SimulationMode mode = SimulationMode::Balls;
 };

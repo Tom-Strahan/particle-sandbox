@@ -7,4 +7,5 @@ struct Particle {
 	Vec2 velocity;
 	float radius;
 	float density;
+	float pressure;
 };

@@ -35,6 +35,7 @@ class ParticleSystem {
     void resolveParticlePair(Particle& a, Particle& b);
     void applyPressureRepulsion(float dt);
     void computeDensities();
+    void computePressures();
     void drawPressure() const;
 
     float cellSize;
